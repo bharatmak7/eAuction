@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type; pragma;"
 	content="text/html; charset=iso-8859-1; no-cache;" />
-<title>E Auction System for MH RTO</title>
+<title>E Auction System for MH RTO : Home</title>
 <link href="jsp/css/style.css" rel="stylesheet" type="text/css" />
 <script src="jsp/js/jquery-1.7.js" type="text/javascript"></script>
 <script src="jsp/js/menu.js" type="text/javascript"></script>
