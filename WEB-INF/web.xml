@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>eAuction</display-name>
+  <servlet>
+    <description>
+		</description>
+    <display-name>LoginSystem</display-name>
+    <servlet-name>LoginSystem</servlet-name>
+    <servlet-class>com.bst.eauction.rto.LoginSystem</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginSystem</servlet-name>
+    <url-pattern>/LoginSystem</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description>
+		</description>
+    <display-name>SignUpBankInfo</display-name>
+    <servlet-name>SignUpBankInfo</servlet-name>
+    <servlet-class>com.bst.eauction.rto.SignUpBankInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SignUpBankInfo</servlet-name>
+    <url-pattern>/SignUpBankInfo</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description>
+		</description>
+    <display-name>SignUpLoginDetail</display-name>
+    <servlet-name>SignUpLoginDetail</servlet-name>
+    <servlet-class>com.bst.eauction.rto.SignUpLoginDetail</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SignUpLoginDetail</servlet-name>
+    <url-pattern>/SignUpLoginDetail</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description>
+		</description>
+    <display-name>SignUpDeclaration</display-name>
+    <servlet-name>SignUpDeclaration</servlet-name>
+    <servlet-class>com.bst.eauction.rto.SignUpDeclaration</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SignUpDeclaration</servlet-name>
+    <url-pattern>/SignUpDeclaration</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description>
+	</description>
+    <display-name>DatabaseConn</display-name>
+    <servlet-name>DatabaseConn</servlet-name>
+    <servlet-class>com.bst.eauction.rto.DatabaseConn</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DatabaseConn</servlet-name>
+    <url-pattern>/DatabaseConn</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description>
+	</description>
+    <display-name>CreateRtoAdmin</display-name>
+    <servlet-name>CreateRtoAdmin</servlet-name>
+    <servlet-class>com.bst.eauction.rto.CreateRtoAdmin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateRtoAdmin</servlet-name>
+    <url-pattern>/CreateRtoAdmin</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description>
+	</description>
+    <display-name>AssignRegionToAdmin</display-name>
+    <servlet-name>AssignRegionToAdmin</servlet-name>
+    <servlet-class>com.bst.eauction.rto.AssignRegionToAdmin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AssignRegionToAdmin</servlet-name>
+    <url-pattern>/AssignRegionToAdmin</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description>
+	</description>
+    <display-name>LaunchNewSeries</display-name>
+    <servlet-name>LaunchNewSeries</servlet-name>
+    <servlet-class>com.bst.eauction.rto.LaunchNewSeries</servlet-class>
+  </servlet>
+    <servlet-mapping>
+    <servlet-name>LaunchNewSeries</servlet-name>
+    <url-pattern>/LaunchNewSeries</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <description>
+	</description>
+    <display-name>DeleteSeries</display-name>
+    <servlet-name>DeleteSeries</servlet-name>
+    <servlet-class>com.bst.eauction.rto.DeleteSeries</servlet-class>
+  </servlet>
+    <servlet-mapping>
+    <servlet-name>DeleteSeries</servlet-name>
+    <url-pattern>/DeleteSeries</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <description>
+	</description>
+    <display-name>UpdateNewSeries</display-name>
+    <servlet-name>UpdateNewSeries</servlet-name>
+    <servlet-class>com.bst.eauction.rto.UpdateNewSeries</servlet-class>
+  </servlet>
+    <servlet-mapping>
+    <servlet-name>UpdateNewSeries</servlet-name>
+    <url-pattern>/UpdateNewSeries</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <description>
+	</description>
+    <display-name>SelectRegion</display-name>
+    <servlet-name>SelectRegion</servlet-name>
+    <servlet-class>com.bst.eauction.rto.SelectRegion</servlet-class>
+  </servlet>
+    <servlet-mapping>
+    <servlet-name>SelectRegion</servlet-name>
+    <url-pattern>/SelectRegion</url-pattern>
+  </servlet-mapping>
+  
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>jsp/index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
