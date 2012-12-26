@@ -15,6 +15,16 @@
 <script src="jsp/js/menu.js" type="text/javascript"></script>
 <script src="jsp/js/ts_picker.js" type="text/javascript"></script>
 <script type="text/javascript">
+document.onmousedown=disableclick;
+var status = "Right Click Disabled";
+function disableclick(e){
+	if(e.button==2)
+	{
+ 	alert(status);
+ 	return false;    
+		}
+}
+
 	function goBack() {
 		window.history.back()
 	}

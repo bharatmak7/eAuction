@@ -14,6 +14,33 @@
 String userName = (String) session.getAttribute("user");
 %>
 		<style>
+		.tooltip{display:inline;position:relative}
+ .tooltip:hover:after{
+   background:#111;
+   background:rgba(0,0,0,.8);
+   border-radius:5px;
+   bottom:18px;
+   color:yellow;
+   content:attr(title);
+   display:block;
+   left:50%;
+   padding:5px 15px;
+   position:absolute;
+   white-space:nowrap;
+   z-index:98;
+   font-size: 14px
+  }
+  .tooltip:hover:before{
+    border:solid;
+    border-color:#111 transparent;
+    border-width:6px 6px 0 6px;
+    bottom:12px;
+    content:"";
+    display:block;
+    left:75%;
+    position:absolute;
+    z-index:99
+   }
 		.black_overlay{
 			display: none;
 			position: absolute;
@@ -21,7 +48,7 @@ String userName = (String) session.getAttribute("user");
 			left: 0%;
 			width: 100%;
 			height: 100%;
-			background-color: black;
+			background-color: gray;
 			z-index:1001;
 			-moz-opacity: 0.8;
 			opacity:.80;
@@ -33,15 +60,25 @@ String userName = (String) session.getAttribute("user");
 			top: 15%;
 			left: 20%;
 			width: 50%;
-			height: 50%;
+			height: 40%;
 			padding: 16px;
-			border: 16px solid white;
+			border: 16px solid #ededed;
 			background-color: #c3c3c3;
 			z-index:1002;
 			overflow: auto;
 		}
 	</style>
-<script type="text/javascript">
+	<script type="text/javascript">
+	document.onmousedown=disableclick;
+	var status="Right Click Disabled";
+	function disableclick(e){
+  	if(e.button==2)
+   	{
+     	alert(status);
+     	return false;    
+   		}
+	}
+
 	function checkNumber(id, visibility) 
 	{
 		var series = document.getElementById('vehNumber').value;
@@ -64,7 +101,9 @@ String userName = (String) session.getAttribute("user");
 	}
 	function resetAll() {
 		document.getElementById('101').style.display = 'none';
+		document.getElementById('vehNumber').focus();
 	}
+	
 </script>
 </head>
 
@@ -120,32 +159,41 @@ String userName = (String) session.getAttribute("user");
 		    			<% } 
 		    				int regnId = rsdoLogin.getInt("region_id");
 		    				String regnName = rsdoLogin.getString("region_name");
+		    				
 		    				DatabaseConn dbConn1 = new DatabaseConn();
 							Connection conn1 = dbConn1.connectDb();
 			    			Statement st1=conn1.createStatement();
-		    				String getStatus = "SELECT * from series_launch Where region_id = '" + rsdoLogin.getInt("region_id") + "'";
+		    				String getStatus = "SELECT * from series_launch AS SL, region_master AS RM Where SL.region_id = '" + rsdoLogin.getInt("region_id") + "' and SL.region_id = RM.region_id";
 		    				//System.out.println(getStatus);
 		    				ResultSet resRegn = st1.executeQuery(getStatus);
 		    				if(null != resRegn && resRegn.first()) {
-		    					if(resRegn.getInt("series_status") == 1){
+		    					if(resRegn.getInt("SL.series_status") == 1){
+		    						String serName = resRegn.getString("SL.series_name");
+				    				Date stDate = resRegn.getDate("SL.ser_st_date");
+				    				Date endDate = resRegn.getDate("SL.ser_end_date");
+				    				String regionName = resRegn.getString("RM.region_name");
 		    			%>
 		    				<td style="background-color: #88BA00;text-align: center;">
-		   					<a href = "javascript:void(0)"  style="text-decoration: none" onclick = "document.getElementById('regnId').value=<%=regnId %>;document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">
-		   						<font style="color: #ffffff; font-size: 12px;" ><%=regnName%>-<%=regnId%></font>
+		   					<a href = "javascript:void(0)"  title=" MAHARASHTRA &#13; RTO : <%=regnName%>-<%=regnId%> &#13; Series : <%=serName %> &#13; Start Date : <%=stDate%> &#13; End Date : <%=endDate %>"  style="text-decoration: none" onclick = "document.getElementById('regnId').value=<%=regnId %>;document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">
+		   						<span style="color: #ffffff; font-size: 12px;" ><%=regnName%>-<%=regnId%></span>
 		   					</a>
 							<div id="light" class="white_content">
 								<form name="makeABid" onsubmit="return validateForm();" action="SelectRegion" method="post">
 								<!-- <a href="SelectRegion?regnId="></a> --> 
-								<input type="hidden" name="regnId" id="regnId" >
-								<table width="100%"  cellspacing="0" cellpadding="15" border="0">
-									<tr>
-									<td></td>
+								<input type="hidden" name="regnId" id="regnId" value="<%=regnId %>">
+
+								<input type="hidden" name="serName" id="serName" value="<%=serName %>">
+								<input type="hidden" name="startDate" id="startDate" value="<%=stDate %>">
+								<input type="hidden" name="endDate" id="endDate" value="<%=endDate %>">
+								
+								<table width="100%"  cellspacing="0" cellpadding="5" border="0">
+									<tr valign="top">
 									<td align="center" style="background-color: orange; color: #123456; font-size: 20px; font-family: text; font-weight: bold;" >
 										Insert Vehicle Number
 									</td>
-									
+									<td></td>
 									<td align="right">
-										<a href = "javascript:void(0)" style="text-decoration: none" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">
+										<a href = "javascript:void(0)"  style="text-decoration: none" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">
 											<img src="jsp/images/close_but.png" height="30px" width="30px">
 										</a>
 									</td>
@@ -155,24 +203,36 @@ String userName = (String) session.getAttribute("user");
 										<td><img src="jsp/images/two_wheel.png" height="80px" width="80px"></td>
 										<td><img src="jsp/images/four_wheel.png" height="80px" width="80px"></td>
 									</tr>
-									<tr>
+									<tr valign="top">
 										<td style="font-size: 16px; color: #123456; font-weight: bold" align="center" > Select Vehicle</td>
-										<td><input type="radio" name="vehicleClass" value="Two Wheeler" checked="checked"></td>
-										<td><input type="radio" name="vehicleClass" value="Four Wheeler" ></td>
+										<td><input type="radio" name="vehicleClass" value="TWO" checked="checked"></td>
+										<td><input type="radio" name="vehicleClass" value="FOUR" ></td>
 									</tr>
 									<tr>
+										<td ></td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+									</tr>
+									<tr valign="top">
 										<td style="font-size: 16px; color: #123456; font-weight: bold" align="center" > Enter Vehicle Number</td>
-										<td>
-										<input type="text" name="vehNumber" id="vehNumber" maxlength="4" onfocus="setVisibility('101','none');"	onBlur="checkNumber('101','inline');"></td>
+										<td align="center">
+										<input type="text" name="vehNumber" id="vehNumber" maxlength="4" size="10" style="height: 30px; width : 50px; font-weight:bold; font-size: 16px; background-color: #ededed;color: #123456; " onfocus="setVisibility('101','none');" onBlur="checkNumber('101','inline');" tabindex="1"></td>
 										<td align="left"><i id="101"><font color="red" size="1">Enter valid number </font></i></td>
 									</tr>
+									<!-- 
+									<tr>
+										<td ></td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+									</tr>
+									 -->
 									<tr>
 									<td></td>
 									<td>
-										<input type="submit" style="width: 120px; height: 30px; background-color: #123456; border-radius:5px; color: white; font-size: 14px;" name="goToBid" id="goToBid" value="Go For Bid" >
+										<input type="submit" style="width: 120px; height: 30px; background-color: #123456; border-radius:5px; color: white; font-size: 14px;" name="goToBid" id="goToBid" value="Go For Bid" tabindex="2" >
 									</td>
 									<td>
-										<input type="button" style="width: 100px; height: 30px; background-color: #123456; border-radius:5px; color: white; font-size: 14px;" name="reset" id="reset" value="Cancel" onclick="javascript:window.location.href='LoginSystem?param=userHome'" />
+										<input type="button" style="width: 100px; height: 30px; background-color: #123456; border-radius:5px; color: white; font-size: 14px;" name="reset" id="reset" value="Cancel" tabindex="3" onclick="javascript:window.location.href='LoginSystem?param=userHome'" />
 									</td>
 									</tr>
 								</table>

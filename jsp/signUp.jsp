@@ -18,6 +18,18 @@ em {
 }
 
 </STYLE>
+
+<script type="text/javascript">
+document.onmousedown=disableclick;
+var status = "Right Click Disabled";
+function disableclick(e){
+	if(e.button==2)
+	{
+ 	alert(status);
+ 	return false;    
+		}
+}
+</script>
 </head>
 
 <body>

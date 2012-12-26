@@ -14,6 +14,16 @@
 <script type="text/javascript">
 //var regEmail = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
 
+document.onmousedown=disableclick;
+var status = "Right Click Disabled";
+function disableclick(e){
+	if(e.button==2)
+	{
+ 	alert(status);
+ 	return false;    
+		}
+}
+
 function goBack() {
 window.history.back()
 }

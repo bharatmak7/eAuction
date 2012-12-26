@@ -35,10 +35,18 @@ public class SelectRegion extends HttpServlet {
 		String regnId = (String) request.getParameter("regnId");
 		String vehClass = (String) request.getParameter("vehicleClass");
 		String vehNum = (String) request.getParameter("vehNumber");
-		System.out.println("regnId id post : "+ vehClass + vehNum);
+		String serName = (String) request.getParameter("serName");
+		String startDate = (String) request.getParameter("startDate");
+		String endDate = (String) request.getParameter("endDate");
+		
 		request.setAttribute("regnId", regnId);
 		request.setAttribute("vehClass", vehClass);
 		request.setAttribute("vehNumber", vehNum);
+		request.setAttribute("startDate", startDate);
+		request.setAttribute("endDate", endDate);
+		request.setAttribute("serName", serName);
+
+		
 		getServletContext().getRequestDispatcher("/jsp/InputNumbers.jsp").forward(request, response);
 	}
 
