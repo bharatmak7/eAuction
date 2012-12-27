@@ -78,7 +78,7 @@ String userName = (String) session.getAttribute("user");
      	return false;    
    		}
 	}
-
+	
 	function checkNumber(id, visibility) 
 	{
 		var series = document.getElementById('vehNumber').value;
@@ -96,7 +96,6 @@ String userName = (String) session.getAttribute("user");
 	}
 	
 	function validateForm() {
-		
 		return checkNumber(101, 'inline');
 	}
 	function resetAll() {
@@ -151,6 +150,7 @@ String userName = (String) session.getAttribute("user");
 		        			rsdoLogin = st.executeQuery(sqlOption);
 		        			if(null != rsdoLogin && rsdoLogin.first()) {
 		        			int i = 0;
+		        			int counter = 0;
 		        				do{
 		    			%>
 		    				
@@ -172,19 +172,29 @@ String userName = (String) session.getAttribute("user");
 				    				Date stDate = resRegn.getDate("SL.ser_st_date");
 				    				Date endDate = resRegn.getDate("SL.ser_end_date");
 				    				String regionName = resRegn.getString("RM.region_name");
+				    				Integer vehId = resRegn.getInt("SL.veh_id");
+				    				Integer seriesId = resRegn.getInt("SL.series_id");
+				    				String vehtype = null;
+				    				if (vehId == 1) {
+				    					vehtype = "TWO WHEELER";
+				    				} else {
+				    					vehtype = "FOUR WHEELER";
+				    				}
+				    				
 		    			%>
 		    				<td style="background-color: #88BA00;text-align: center;">
-		   					<a href = "javascript:void(0)"  title=" MAHARASHTRA &#13; RTO : <%=regnName%>-<%=regnId%> &#13; Series : <%=serName %> &#13; Start Date : <%=stDate%> &#13; End Date : <%=endDate %>"  style="text-decoration: none" onclick = "document.getElementById('regnId').value=<%=regnId %>;document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">
+		   					<a href = "javascript:void(0)"  title=" MAHARASHTRA &#13; RTO : <%=regnName%>-<%=regnId%> &#13; Series : <%=serName %> - <%=vehtype %> &#13; Start Date : <%=stDate%> &#13; End Date : <%=endDate %>"  style="text-decoration:none" onclick = "document.getElementById('seriesId').value='<%=seriesId %>';document.getElementById('vehId').value='<%=vehId %>';document.getElementById('regnId').value='<%=regnId %>';document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">
 		   						<span style="color: #ffffff; font-size: 12px;" ><%=regnName%>-<%=regnId%></span>
 		   					</a>
 							<div id="light" class="white_content">
-								<form name="makeABid" onsubmit="return validateForm();" action="SelectRegion" method="post">
-								<!-- <a href="SelectRegion?regnId="></a> --> 
-								<input type="hidden" name="regnId" id="regnId" value="<%=regnId %>">
+								<form name="makeABid<%=counter %>" onsubmit="return validateForm();" action="SelectRegion" method="post">
+								<input type="hidden" name="regnId" id="regnId" value="">
 
 								<input type="hidden" name="serName" id="serName" value="<%=serName %>">
 								<input type="hidden" name="startDate" id="startDate" value="<%=stDate %>">
 								<input type="hidden" name="endDate" id="endDate" value="<%=endDate %>">
+								<input type="hidden" name="vehId" id="vehId" value="">
+								<input type="hidden" name="seriesId" id="seriesId" value="">
 								
 								<table width="100%"  cellspacing="0" cellpadding="5" border="0">
 									<tr valign="top">
@@ -205,7 +215,8 @@ String userName = (String) session.getAttribute("user");
 									</tr>
 									<tr valign="top">
 										<td style="font-size: 16px; color: #123456; font-weight: bold" align="center" > Select Vehicle</td>
-										<td><input type="radio" name="vehicleClass" value="TWO" checked="checked"></td>
+										
+											<td><input type="radio" name="vehicleClass" value="TWO" checked="checked" ></td>
 										<td><input type="radio" name="vehicleClass" value="FOUR" ></td>
 									</tr>
 									<tr>
@@ -229,7 +240,7 @@ String userName = (String) session.getAttribute("user");
 									<tr>
 									<td></td>
 									<td>
-										<input type="submit" style="width: 120px; height: 30px; background-color: #123456; border-radius:5px; color: white; font-size: 14px;" name="goToBid" id="goToBid" value="Go For Bid" tabindex="2" >
+										<input type="submit" style="width: 120px; height: 30px; background-color: #123456; border-radius:5px; color: white; font-size: 14px;" name="goToBid" id="goToBid" value="Go For Bid" tabindex="2">
 									</td>
 									<td>
 										<input type="button" style="width: 100px; height: 30px; background-color: #123456; border-radius:5px; color: white; font-size: 14px;" name="reset" id="reset" value="Cancel" tabindex="3" onclick="javascript:window.location.href='LoginSystem?param=userHome'" />
@@ -244,6 +255,7 @@ String userName = (String) session.getAttribute("user");
 		    					
 		    				</td>
 		    			<%
+		    				
 		    					}
 		    				} else {
 		    			%>
@@ -254,11 +266,13 @@ String userName = (String) session.getAttribute("user");
 						<% 
 		    				}
 		    				conn1.close();
+		    				
 						i++;
 						if (i%5 == 0) { %>
 		    				</tr>
 		    			<% } %>		    				
 		    			<%
+		    			counter++;
 		        				} while (rsdoLogin.next());
 		        			}
 		    			} catch(Exception e) {

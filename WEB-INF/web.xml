@@ -12,7 +12,6 @@
     <servlet-name>LoginSystem</servlet-name>
     <url-pattern>/LoginSystem</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description>
 		</description>
@@ -24,7 +23,6 @@
     <servlet-name>SignUpBankInfo</servlet-name>
     <url-pattern>/SignUpBankInfo</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description>
 		</description>
@@ -36,7 +34,6 @@
     <servlet-name>SignUpLoginDetail</servlet-name>
     <url-pattern>/SignUpLoginDetail</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description>
 		</description>
@@ -48,7 +45,6 @@
     <servlet-name>SignUpDeclaration</servlet-name>
     <url-pattern>/SignUpDeclaration</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description>
 	</description>
@@ -60,7 +56,6 @@
     <servlet-name>DatabaseConn</servlet-name>
     <url-pattern>/DatabaseConn</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description>
 	</description>
@@ -72,7 +67,6 @@
     <servlet-name>CreateRtoAdmin</servlet-name>
     <url-pattern>/CreateRtoAdmin</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description>
 	</description>
@@ -84,7 +78,6 @@
     <servlet-name>AssignRegionToAdmin</servlet-name>
     <url-pattern>/AssignRegionToAdmin</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description>
 	</description>
@@ -92,47 +85,55 @@
     <servlet-name>LaunchNewSeries</servlet-name>
     <servlet-class>com.bst.eauction.rto.LaunchNewSeries</servlet-class>
   </servlet>
-    <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>LaunchNewSeries</servlet-name>
     <url-pattern>/LaunchNewSeries</url-pattern>
   </servlet-mapping>
-  
-    <servlet>
+  <servlet>
     <description>
 	</description>
     <display-name>DeleteSeries</display-name>
     <servlet-name>DeleteSeries</servlet-name>
     <servlet-class>com.bst.eauction.rto.DeleteSeries</servlet-class>
   </servlet>
-    <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>DeleteSeries</servlet-name>
     <url-pattern>/DeleteSeries</url-pattern>
   </servlet-mapping>
-  
-    <servlet>
+  <servlet>
     <description>
 	</description>
     <display-name>UpdateNewSeries</display-name>
     <servlet-name>UpdateNewSeries</servlet-name>
     <servlet-class>com.bst.eauction.rto.UpdateNewSeries</servlet-class>
   </servlet>
-    <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>UpdateNewSeries</servlet-name>
     <url-pattern>/UpdateNewSeries</url-pattern>
   </servlet-mapping>
-  
-    <servlet>
+  <servlet>
     <description>
 	</description>
     <display-name>SelectRegion</display-name>
     <servlet-name>SelectRegion</servlet-name>
     <servlet-class>com.bst.eauction.rto.SelectRegion</servlet-class>
   </servlet>
-    <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>SelectRegion</servlet-name>
     <url-pattern>/SelectRegion</url-pattern>
   </servlet-mapping>
   
+    <servlet>
+    <description>
+	</description>
+    <display-name>PayCmd</display-name>
+    <servlet-name>PayCmd</servlet-name>
+    <servlet-class>com.bst.eauction.rto.PayCmd</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PayCmd</servlet-name>
+    <url-pattern>/PayCmd</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>

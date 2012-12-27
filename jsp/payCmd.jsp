@@ -32,7 +32,6 @@ DatabaseConn dbConn1 = new DatabaseConn();
 Connection conn1 = dbConn1.connectDb();
 Statement st1=conn1.createStatement();
 String getBaseAmt = "SELECT * FROM number_price_value AS NPV, region_master AS RM WHERE NPV.reg_no = '"+vehNumber+"' AND NPV.veh_id = '"+vehId+"' and RM.region_id = '"+regnId+"'";
-System.out.println(getBaseAmt);
 String regnName  = null;
 int ruleId = 0;
 ResultSet resRegn = st1.executeQuery(getBaseAmt);
@@ -80,9 +79,10 @@ function disableclick(e){
 	</td>
 	<td>
 		<fieldset style="border-color: #e2e2e2">
-			<legend style="font-size: 18pt; color: #123456; font-weight: bold; font-family: arail">Selected Number Info</legend>
+			<legend style="font-size: 18pt; color: #123456; font-weight: bold; font-family: arail">Make CMD Payment</legend>
 			<br/>
-			<form name="payCmd" action="PayCmd" method="post">
+			<p align="left" style="font-size: 14pt; padding :5px; background-color:#d2d2d2; color: orange;font-family: verdana">Vehicle Number Information</p>
+			<form name="payCmd" action="#" method="post">
 			<table width="100%" cellpadding="10" cellspacing="0" border="0">
 				<tr style="background-color: #e2e2e2">
 					<td align="center" style="background-color: #505050; color: white; font-size: 30px;" width="30%">MH-<%=regnId %>-<%=serName %><br/><br/><span style="font-size: 50px;color: yellow;"><%=vehNumber %></span></td>
@@ -100,22 +100,75 @@ function disableclick(e){
 					<td align="right" style="background-color: #d2d2d2;"><span style="font-size: 20px; color:#808080">Total : </span> 
 					<lable style="height: 30px; width: 60px; font-size:20px; color: #505050" name="amtToPay" id="amtToPay"> <%=baseAmt*25/100 %> &#x20B9; </lable></td>
 				</tr>
+			</table>			
+			<%
+			DatabaseConn dbConn2 = new DatabaseConn();
+			Connection conn2 = dbConn1.connectDb();
+			Statement st2=conn2.createStatement();
+			String fullName = null;
+			String bankName = null;
+			String branchName = null;
+			Integer accountNo = null;
+			Integer accountType = null;
+			String accType = null;
+			String ifscCode = null;
+			String getBaseAmt2 = "SELECT * FROM users AS U, users_bankacc_info AS UBI, users_personal_info AS UPI WHERE user_id = '"+userId+"' and U.bankacc_info_id = UBI.bankacc_info_id and UPI.personal_info_id = U.personal_info_id";
+
+			ResultSet resRegn2 = st2.executeQuery(getBaseAmt2);
+			if(null != resRegn2 && resRegn2.first()) {
+				do {
+					fullName = resRegn2.getString("fullname");
+					bankName = resRegn2.getString("UBI.bank_name");
+					branchName = resRegn2.getString("UBI.branch_name");
+					accountNo = resRegn2.getInt("UBI.account_number");
+					accountType = resRegn2.getInt("UBI.account_type");
+					if (accountType.equals(1)) {
+						accType = "SAVINGS";
+					} else {
+						accType = "CURRENT";
+					}
+					ifscCode = resRegn2.getString("UBI.ifsc_code");
+				} while (resRegn.next());;
+			}
+			
+			%>
+			<br/>
+			<p align="left" style="font-size: 14pt; padding :5px; background-color:#d2d2d2; color: orange;  font-family: verdana">User Account Information</p>
+			<table width="100%" cellpadding="3" cellspacing="0" border="0" style="background-color: #e2e2e2"> 
+				<tr style="color: green; font-weight: bold;">
+					<td width="40%"><span style="color:#5A5655; font-size: 10px; ">User Full Name :</span> <i><%=fullName %></i></td>
+					<td></td>
+				</tr>
+				<tr style="color: #123456; font-weight: bold;">
+					<td><span style="color:#5A5655; font-size: 10px; ">Bank Name :</span> <i><%=bankName %></i></td>
+					<td><span style="color:#5A5655; font-size: 10px; ">Branch Name :</span> <i><%=branchName %></i></td>
+				</tr>				
+				<tr style="color: #123456; font-weight: bold;">
+					<td><span style="color:#5A5655; font-size: 10px; ">Account Number :</span> <i><%=accountNo %></i></td>
+					<td><span style="color:#5A5655; font-size: 10px; ">Account Type :</span> <i><%=accType %></i></td>
+				</tr>			
+				<tr style="color: #123456; font-weight: bold;">
+					<td><span style="color:#5A5655; font-size: 10px; ">IFSC Code :</span> <i><%=ifscCode %></i></td>
+					<td></td>
+				</tr>
+				<tr style="color: #123456; font-weight: bold; ">
+					<td style="background-color: #d3d3d3"><span style="color:#505050; font-size: 10px; ">Enter PIN Number :</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="password" name="pinNo" id="pinNo" maxlength="4" style="height: 20px;width: 50px; background-color: #f2f2f2;color: #123456;"> 
+					</td>
+					<td></td>
+				</tr>
+				<tr style="color: #123456; font-weight: bold; ">
+					<td style="background-color: #d3d3d3"><span style="color:#505050; font-size: 10px; ">Enter CVV Number :</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="password" name="pinNo" id="pinNo" maxlength="4" style="height: 20px;width: 50px; background-color: #f2f2f2;color: #123456;"> 
+					</td>
+					<td></td>
+				</tr>
+								
 			</table>
 			<br/>
 			<br/>
-			<input name="regnId" id="regnId" type="hidden" value="<%=regnId %>">
-			<input name="vehicleClass" id="vehicleClass" type="hidden" value="<%=vehClass %>">
-			<input name="vehNumber" id="vehNumber" type="hidden" value="<%=vehNumber %>">
-			<input name="serName" id="serName" type="hidden" value="<%=serName %>">
-			<input name="startDate" id="startDate" type="hidden" value="<%=startDate %>">
-			<input name="endDate" id="endDate" type="hidden" value="<%=endDate %>">
-			<input name="baseAmt" id="baseAmt" type="hidden" value="<%=baseAmt %>">
-			<input name="cmdAmt" id="cmdAmt" type="hidden" value="<%=baseAmt*25/100 %>">
-			<input name="userId" id="userId" type="hidden" value="<%=userId %>">
-			<input name="ruleId" id="ruleId" type="hidden" value="<%=ruleId %>">
-			<input name="seriesId" id="seriesId" type="hidden" value="<%=seriesId %>">
 			<p align="right">
-				<input type="submit" style="width: 100px; height: 30px; background-color: #123456; border-radius:5px; color: white; font-size: 14px;" name="addToCart" value="Pay CMD">
+				<input type="submit" style="width: 140px; height: 30px; background-color: #123456; border-radius:5px; color: white; font-size: 14px;" name="addToCart" value="Make CMD Payment">
 				<input type="button" style="width: 100px; height: 30px; background-color: #123456; border-radius:5px; color: white; font-size: 14px;" name="reset" id="reset" value="Cancel" onclick="javascript:window.location.href='LoginSystem?param=userHome'" />
 			</p>
 			</form>

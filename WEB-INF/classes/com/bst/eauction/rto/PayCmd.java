@@ -8,18 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class SelectRegion
+ * Servlet implementation class PayCmd
  */
-@WebServlet("/SelectRegion")
-public class SelectRegion extends HttpServlet {
+@WebServlet("/PayCmd")
+public class PayCmd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectRegion() {
+    public PayCmd() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -38,7 +37,11 @@ public class SelectRegion extends HttpServlet {
 		String serName = (String) request.getParameter("serName");
 		String startDate = (String) request.getParameter("startDate");
 		String endDate = (String) request.getParameter("endDate");
-		String seriesId = (String) request.getParameter("seriesId");
+		String  baseAmt = (String) request.getParameter("baseAmt");
+		String  cmdAmt = (String) request.getParameter("cmdAmt");
+		String  userId = (String) request.getParameter("userId");
+		String  ruleId = (String) request.getParameter("ruleId");
+		String  seriesId = (String) request.getParameter("seriesId");
 		
 		request.setAttribute("regnId", regnId);
 		request.setAttribute("vehClass", vehClass);
@@ -46,10 +49,13 @@ public class SelectRegion extends HttpServlet {
 		request.setAttribute("startDate", startDate);
 		request.setAttribute("endDate", endDate);
 		request.setAttribute("serName", serName);
+		request.setAttribute("baseAmt", baseAmt);
+		request.setAttribute("cmdAmt", cmdAmt);
+		request.setAttribute("userId", userId);
+		request.setAttribute("ruleId", ruleId);
 		request.setAttribute("seriesId", seriesId);
-
 		
-		getServletContext().getRequestDispatcher("/jsp/InputNumbers.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/jsp/payCmd.jsp").forward(request, response);
 	}
 
 }
