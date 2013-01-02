@@ -122,8 +122,7 @@
     <servlet-name>SelectRegion</servlet-name>
     <url-pattern>/SelectRegion</url-pattern>
   </servlet-mapping>
-  
-    <servlet>
+  <servlet>
     <description>
 	</description>
     <display-name>PayCmd</display-name>
@@ -134,6 +133,75 @@
     <servlet-name>PayCmd</servlet-name>
     <url-pattern>/PayCmd</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description>
+	</description>
+    <display-name>PlaceBidOnce</display-name>
+    <servlet-name>PlaceBidOnce</servlet-name>
+    <servlet-class>com.bst.eauction.rto.PlaceBidOnce</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PlaceBidOnce</servlet-name>
+    <url-pattern>/PlaceBidOnce</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>
+	</description>
+    <display-name>PlaceBidOnceFinal</display-name>
+    <servlet-name>PlaceBidOnceFinal</servlet-name>
+    <servlet-class>com.bst.eauction.rto.PlaceBidOnceFinal</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PlaceBidOnceFinal</servlet-name>
+    <url-pattern>/PlaceBidOnceFinal</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>
+	</description>
+    <display-name>BidStatusShow</display-name>
+    <servlet-name>BidStatusShow</servlet-name>
+    <servlet-class>com.bst.eauction.rto.BidStatusShow</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BidStatusShow</servlet-name>
+    <url-pattern>/BidStatusShow</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>
+	</description>
+    <display-name>PlaceNewBidAmount</display-name>
+    <servlet-name>PlaceNewBidAmount</servlet-name>
+    <servlet-class>com.bst.eauction.rto.PlaceNewBidAmount</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PlaceNewBidAmount</servlet-name>
+    <url-pattern>/PlaceNewBidAmount</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>
+	</description>
+    <display-name>AddWatchList</display-name>
+    <servlet-name>AddWatchList</servlet-name>
+    <servlet-class>com.bst.eauction.rto.AddWatchList</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddWatchList</servlet-name>
+    <url-pattern>/AddWatchList</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <description>
+	</description>
+    <display-name>ViewWatchListShow</display-name>
+    <servlet-name>ViewWatchListShow</servlet-name>
+    <servlet-class>com.bst.eauction.rto.ViewWatchListShow</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewWatchListShow</servlet-name>
+    <url-pattern>/ViewWatchListShow</url-pattern>
+  </servlet-mapping>
+  
+  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>

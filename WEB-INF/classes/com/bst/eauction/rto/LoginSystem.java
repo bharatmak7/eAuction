@@ -23,7 +23,6 @@ public class LoginSystem extends HttpServlet {
 	 */
 	public LoginSystem() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -70,7 +69,13 @@ public class LoginSystem extends HttpServlet {
 				masterRedirect(request, response,"/jsp/users.jsp");
 			else if(param.equals("deleteSeries"))
 				masterRedirect(request, response,"/jsp/deleteSeries.jsp");
-			
+			else if(param.equals("bidStatus"))
+				masterRedirect(request, response,"/jsp/bidStatus.jsp");
+			else if(param.equals("myWatchList"))
+				masterRedirect(request, response,"/jsp/myWatchList.jsp");
+			else if(param.equals("viewWatchList"))
+				masterRedirect(request, response,"/jsp/viewWatchList.jsp");
+						
 		}
 	}
 
@@ -106,7 +111,7 @@ public class LoginSystem extends HttpServlet {
 			sql = "select * from admin WHERE login_name like '"+userName+"' and password like '"+password+"'";
 			
 		} else {
-			sql = "SELECT * FROM `users` as U,`users_login_info` as UI  WHERE U.login_info_id= UI.login_info_id and UI.login_name like '"+userName+"' and UI.password like '"+password+"'";
+			sql = "SELECT * FROM `users` as U,`users_login_info` as UI, `users_personal_info` as UPI  WHERE U.personal_info_id= UPI.personal_info_id and U.login_info_id= UI.login_info_id and UI.login_name like '"+userName+"' and UI.password like '"+password+"'";
 			System.out.println(sql);
 		}
 
@@ -117,12 +122,10 @@ public class LoginSystem extends HttpServlet {
 			rs = st.executeQuery(sql);
 			if(null != rs && rs.first() == true)
 			{
-				System.out.println("Record set not null : "+rs);
-				userName = rs.getString("login_name");
 				password = rs.getString("password");
-				System.out.println("u" + userName + "pd" + password);
 				if(null != isAdmin && isAdmin.equals("on"))
 				{
+					userName = rs.getString("admin_fullname");
 					userId = rs.getString("admin_id");
 					isSuperUser = rs.getString("admin_superuser");
 					session.setAttribute("admin", userName);
@@ -134,6 +137,7 @@ public class LoginSystem extends HttpServlet {
 					return;
 					//getServletContext().getRequestDispatcher("/jsp/admin.jsp").forward(request, response);
 				} else {
+					userName = rs.getString("UPI.fullname");
 					userId = rs.getString("user_id");
 					session.setAttribute("user", userName);
 					session.setAttribute("userId", userId);

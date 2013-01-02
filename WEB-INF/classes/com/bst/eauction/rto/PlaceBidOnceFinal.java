@@ -1,6 +1,7 @@
 package com.bst.eauction.rto;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -11,16 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class AssignRegionToAdmin
+ * Servlet implementation class PlaceBidOnceFinal
  */
-@WebServlet("/AssignRegionToAdmin")
-public class AssignRegionToAdmin extends HttpServlet {
+@WebServlet("/PlaceBidOnceFinal")
+public class PlaceBidOnceFinal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AssignRegionToAdmin() {
+    public PlaceBidOnceFinal() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,37 +30,36 @@ public class AssignRegionToAdmin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String getRegion = (String) request.getParameter("selCheckBox");
-		String[] region = getRegion.split(",");
-		String admId = (String) request.getParameter("selAdmin");
-		String regnId = (String) request.getParameter("admReg");
-		DatabaseConn dbObj = new DatabaseConn();
-		for (int i = 0; i < region.length; i++) {
+		String bidAmt = request.getParameter("bidAmt");
+		String orderId = request.getParameter("orderId");
+		System.out.println("bidAmount : " + bidAmt + " order Id " +orderId);
+		
+		DatabaseConn dbcon = new DatabaseConn();
+		Connection conn1;
 			try {
-				Statement insertAdmin = dbObj.connectDb().createStatement();
-				String insertStmt = "INSERT INTO `rel_region_admin`(`region_id`, `admin_id`) VALUES " +
-						"("+region[i]+","+admId+")";
-				//System.out.println(insertStmt);
-				insertAdmin.execute(insertStmt);
-			} catch (SQLException e) {
-				e.printStackTrace();
+				conn1 = dbcon.connectDb();
+				Statement st=conn1.createStatement();
+				String insertSAR = "INSERT INTO `bid_record`( `order_id`, `bid_amount`) VALUES ('"+orderId+"','"+bidAmt	+"')";
+				st.executeUpdate(insertSAR);
+				conn1.close();
 			} catch (InstantiationException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		}
-		System.out.println("Regn : " + getRegion + "adm Id : " +admId + "regn Id" + regnId);
-		request.setAttribute("showMessage", "true");
-		getServletContext().getRequestDispatcher("/jsp/assignRegionToAdmin.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/jsp/bidStatus.jsp").forward(request, response);
+			
 	}
 
 }
